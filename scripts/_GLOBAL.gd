@@ -10,11 +10,20 @@ var game_nmb:int = 0
 var score_1:int = 0
 var score_2:int = 0
 var prev_scored:int = 1
+var upnp = UPNP.new()
+const DEFAULT_PORT = 8910
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_tree().set_auto_accept_quit(false)
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+
+func _notification(note):
+	if note == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		get_tree().quit() # default behavior
+		# Do something with the opened port, then on quitting:
+	upnp.delete_port_mapping(DEFAULT_PORT)
 
 func _connected_fail():
 	get_tree().set_network_peer(null)
@@ -34,18 +43,18 @@ func scored(player:int) -> void:
 			1:
 				score_1+=1
 			2:
-				score_2+=2
+				score_2+=1
 		prev_scored=player
 		game_nmb+=1
 		restart_scene()
 		rpc("update", score_1,score_2,prev_scored,game_nmb)
 	$sfx/score.play()
 
-puppet func update(score_1,score_2,prev_scored,game_nmb):
-	self.score_1=score_1
-	self.score_2=score_2
-	self.prev_scored=prev_scored
-	self.game_nmb=game_nmb
+puppet func update(uscore_1,uscore_2,uprev_scored,ugame_nmb):
+	self.score_1=uscore_1
+	self.score_2=uscore_2
+	self.prev_scored=uprev_scored
+	self.game_nmb=ugame_nmb
 	restart_scene()
 
 func score():

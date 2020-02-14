@@ -3,7 +3,7 @@ extends KinematicBody2D
 # var a = 2
 var screen_size
 var direction = Vector2(1.0, 0.0)
-const INITIAL_SPEED = 5
+const INITIAL_SPEED = 6
 # Speed of the ball (also in pixels/second)
 var speed = INITIAL_SPEED
 var velocity = Vector2()
@@ -19,7 +19,10 @@ puppet func set_pos_and_motion_ball(b_pos,b_vol):
 
 func _physics_process(delta):
 	if is_network_master()||get_tree().get_network_peer()==null:
-		var collision_info = move_and_collide(velocity*(speed+(1+GLOBAL.game_nmb/5)))
+		var extraSpeed=GLOBAL.game_nmb/5;
+		extraSpeed=min(extraSpeed,20)
+		speed=INITIAL_SPEED+extraSpeed
+		var collision_info = move_and_collide(velocity*speed)
 		if collision_info:
 			velocity = velocity.bounce(collision_info.normal)
 		if get_tree().get_network_peer()!=null:

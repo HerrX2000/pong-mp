@@ -1,5 +1,5 @@
 extends Node2D
-const DEFAULT_PORT = 8910 # some random number, pick your port properly
+ # some random number, pick your port properly
 
 #### Network callbacks from SceneTree ####
 
@@ -68,9 +68,13 @@ func _end_game(with_error=""):
 
 
 func _on_Host_pressed():
+	var upnp:int=GLOBAL.upnp.discover()
+	GLOBAL.upnp.add_port_mapping(GLOBAL.DEFAULT_PORT,GLOBAL.DEFAULT_PORT,"Pong MP TCP","TCP")
+	GLOBAL.upnp.add_port_mapping(GLOBAL.DEFAULT_PORT,GLOBAL.DEFAULT_PORT,"Pong MP UDP","UDP")
+
 	var host = NetworkedMultiplayerENet.new()
 	host.set_compression_mode(NetworkedMultiplayerENet.COMPRESS_RANGE_CODER)
-	var err = host.create_server(DEFAULT_PORT, 1) # max: 1 peer, since it's a 2 players game
+	var err = host.create_server(GLOBAL.DEFAULT_PORT, 1) # max: 1 peer, since it's a 2 players game
 	if err != OK:
 		#is another server running?
 		_set_status("Can't host, address in use.",false)
@@ -78,7 +82,11 @@ func _on_Host_pressed():
 
 	get_tree().set_network_peer(host)
 	get_node("Panel/WaitingPlayers").visible=true
-	get_node("Panel/WaitingPlayers").text="Waiting for Players to connect...\n@Port:"+str(DEFAULT_PORT)
+	if(upnp==0):
+		get_node("Panel/WaitingPlayers").text="Waiting for Players to connect...\nuPNP succesful"+str(GLOBAL.DEFAULT_PORT)
+	else:
+		get_node("Panel/WaitingPlayers").text="Waiting for Players to connect...\nMake sure Port "+str(GLOBAL.DEFAULT_PORT)+" TCP/UDP is open"
+	
 	disable_buttons()
 
 func _on_Join_pressed():
@@ -89,7 +97,7 @@ func _on_Join_pressed():
 
 	var host = NetworkedMultiplayerENet.new()
 	host.set_compression_mode(NetworkedMultiplayerENet.COMPRESS_RANGE_CODER)
-	host.create_client(ip, DEFAULT_PORT)
+	host.create_client(ip, GLOBAL.DEFAULT_PORT)
 	get_tree().set_network_peer(host)
 
 	_set_status("Connecting..", true)

@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/main/main.gd" type="Script" id=1]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/player2.gd" type="Script" id=3]
 [ext_resource path="res://objects/ball.tscn" type="PackedScene" id=4]
 [ext_resource path="res://fonts/Roboto-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://fonts/Roboto-Regular.tres" type="DynamicFont" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 360 )
@@ -102,3 +103,19 @@ custom_fonts/font = SubResource( 4 )
 text = "Start"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="speedInfo" type="Label" parent="."]
+margin_left = 563.109
+margin_top = 24.0
+margin_right = 694.109
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 6 )
+text = "Speed: 0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
