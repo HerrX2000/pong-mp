@@ -10,7 +10,7 @@ var velocity = Vector2()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if is_network_master():
+	if is_network_master()||get_tree().get_network_peer()==null:
 		start_ball()
 
 puppet func set_pos_and_motion_ball(b_pos,b_vol):
@@ -18,11 +18,12 @@ puppet func set_pos_and_motion_ball(b_pos,b_vol):
 	velocity=b_vol
 
 func _physics_process(delta):
-	if is_network_master():
+	if is_network_master()||get_tree().get_network_peer()==null:
 		var collision_info = move_and_collide(velocity*(speed+(1+GLOBAL.game_nmb/5)))
 		if collision_info:
 			velocity = velocity.bounce(collision_info.normal)
-		rpc_unreliable("set_pos_and_motion_ball", position, velocity)
+		if get_tree().get_network_peer()!=null:
+			rpc_unreliable("set_pos_and_motion_ball", position, velocity)
 
 func start_ball():
 	velocity = Vector2()

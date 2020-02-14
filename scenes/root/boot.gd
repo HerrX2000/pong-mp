@@ -30,13 +30,9 @@ func _set_status(x,y):
 
 # callback from SceneTree, only for clients (not server)
 func _connected_fail():
-
-	_set_status("Couldn't connect",false)
-
 	get_tree().set_network_peer(null) #remove peer
-
-	get_node("panel/join").set_disabled(false)
-	get_node("panel/host").set_disabled(false)
+	disable_buttons(false)
+	get_node("Panel/Connecting").visible=true
 
 func _server_disconnected():
 	_end_game("Server disconnected")
@@ -81,12 +77,12 @@ func _on_Host_pressed():
 		return
 
 	get_tree().set_network_peer(host)
-	get_node("Panel/Join").set_disabled(true)
-	get_node("Panel/Host").set_disabled(true)
-
+	get_node("Panel/WaitingPlayers").visible=true
+	get_node("Panel/WaitingPlayers").text="Waiting for Players to connect...\n@Port:"+str(DEFAULT_PORT)
+	disable_buttons()
 
 func _on_Join_pressed():
-	var ip = "192.168.178.20"
+	var ip = get_node("Panel/IpAdress").text
 	if not ip.is_valid_ip_address():
 		_set_status("IP address is invalid", false)
 		return
@@ -97,6 +93,8 @@ func _on_Join_pressed():
 	get_tree().set_network_peer(host)
 
 	_set_status("Connecting..", true)
+	get_node("Panel/Connecting").visible=true
+	disable_buttons()
 
 ### INITIALIZER ####
 
@@ -107,3 +105,13 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+
+
+func _on_Local_pressed():
+	disable_buttons()
+	GLOBAL.load_scene("main");
+
+func disable_buttons(disabled=true):
+	get_node("Panel/Join").set_disabled(disabled)
+	get_node("Panel/Host").set_disabled(disabled)
+	get_node("Panel/Local").set_disabled(disabled)

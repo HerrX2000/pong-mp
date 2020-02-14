@@ -25,7 +25,8 @@ func get_input():
 	if Input.is_action_pressed('player1_up'):
 		velocity.y -= 1
 	velocity = velocity.normalized() * speed
-	rpc_unreliable("set_pos_and_motion1", position, velocity)
+	if get_tree().get_network_peer()!=null:
+		rpc_unreliable("set_pos_and_motion1", position, velocity)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/root/boot.gd" type="Script" id=1]
 [ext_resource path="res://fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://fonts/Roboto-Regular.tres" type="DynamicFont" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 160
@@ -43,7 +44,7 @@ margin_bottom = 713.87
 custom_fonts/font = SubResource( 2 )
 text = "0.1
 by Fred
-©2019
+©2020
 "
 align = 1
 __meta__ = {
@@ -52,9 +53,9 @@ __meta__ = {
 
 [node name="Panel" type="Panel" parent="."]
 margin_left = 153.0
-margin_top = 327.0
+margin_top = 328.166
 margin_right = 1151.0
-margin_bottom = 490.0
+margin_bottom = 491.166
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -65,20 +66,71 @@ margin_top = 30.0
 margin_right = 934.0
 margin_bottom = 118.0
 rect_pivot_offset = Vector2( 176, 16 )
+custom_fonts/font = ExtResource( 3 )
 text = "Join"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Host" type="Button" parent="Panel"]
-margin_left = 30.0
+margin_left = 365.909
 margin_top = 31.0
-margin_right = 271.0
+margin_right = 606.909
 margin_bottom = 119.0
-rect_pivot_offset = Vector2( 176, 16 )
+rect_pivot_offset = Vector2( 316.338, 0 )
+custom_fonts/font = ExtResource( 3 )
 text = "Host"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Local" type="Button" parent="Panel"]
+margin_left = 50.9943
+margin_top = 32.1663
+margin_right = 291.994
+margin_bottom = 120.166
+rect_pivot_offset = Vector2( 316.338, 0 )
+custom_fonts/font = ExtResource( 3 )
+text = "Local"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IpAdress" type="TextEdit" parent="Panel"]
+margin_left = 746.0
+margin_top = 120.0
+margin_right = 936.0
+margin_bottom = 160.0
+custom_fonts/font = ExtResource( 3 )
+text = "192.168.178.20"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Panel"]
+margin_left = 693.0
+margin_top = 117.0
+margin_right = 743.0
+margin_bottom = 161.0
+custom_fonts/font = ExtResource( 3 )
+disabled = true
+text = "IP:"
+
+[node name="WaitingPlayers" type="RichTextLabel" parent="Panel"]
+visible = false
+margin_left = 378.0
+margin_top = 128.0
+margin_right = 593.0
+margin_bottom = 168.0
+text = "Waiting for Players to connect..."
+
+[node name="Connecting" type="RichTextLabel" parent="Panel"]
+visible = false
+margin_left = 378.0
+margin_top = 128.0
+margin_right = 593.0
+margin_bottom = 168.0
+text = "Connecting..."
 [connection signal="pressed" from="Panel/Join" to="." method="_on_Join_pressed"]
 [connection signal="pressed" from="Panel/Host" to="." method="_on_Host_pressed"]
+[connection signal="pressed" from="Panel/Local" to="." method="_on_Local_pressed"]
