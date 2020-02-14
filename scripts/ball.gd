@@ -29,6 +29,7 @@ func _physics_process(delta):
 		var collision_info = move_and_collide(velocity*speed)
 		if collision_info:
 			velocity = velocity.bounce(collision_info.normal)
+			GLOBAL.play_sound("sfx/ping",true)
 		if get_tree().get_network_peer()!=null:
 			rpc_unreliable("set_pos_and_motion_ball", position, velocity)
 

@@ -123,3 +123,12 @@ func disable_buttons(disabled=true):
 	get_node("Panel/Join").set_disabled(disabled)
 	get_node("Panel/Host").set_disabled(disabled)
 	get_node("Panel/Local").set_disabled(disabled)
+
+
+func _on_SoundToggle_toggled(button_pressed):
+	if(!button_pressed):
+		GLOBAL.music=false;
+		$music.stop();
+	else:
+		GLOBAL.music=true;
+		$music.play();

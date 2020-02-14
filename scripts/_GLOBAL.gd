@@ -14,6 +14,7 @@ var upnp = UPNP.new()
 var winner:int=0
 const DEFAULT_PORT = 8910
 const MAX_GAMES=50
+var music:bool=true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,14 +51,22 @@ func scored(player:int) -> void:
 		game_nmb+=1
 		restart_scene()
 		rpc("update", score_1,score_2,prev_scored,game_nmb)
-	$sfx/score.play()
+	play_sound("sfx/score")
 	if score_1+score_2>=MAX_GAMES:
 		if score_1>score_2:
 			winner=1
 		elif score_1<score_2:
 			winner=2
+		play_sound("sfx/gameover")
 		rpc("won", winner)
 		load_scene("boot")
+
+func play_sound(name:String,restart:bool=true):
+	if (get_node(name).playing!=true||restart)&&music:
+		get_node(name).play()
+
+func stop_sound(name:String):
+	get_node(name).stop()
 
 puppet func update(uscore_1,uscore_2,uprev_scored,ugame_nmb):
 	self.score_1=uscore_1

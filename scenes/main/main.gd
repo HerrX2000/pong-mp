@@ -25,6 +25,7 @@ func _ready():
 	$goal_2.connect("body_entered", self, "on_body_entered", [1])
 	if GLOBAL.game_nmb!=0:
 		$info.text=str("")
+	GLOBAL.play_sound("main_track",false)
 
 func on_body_entered(body,player) -> void:
 	if body.name=="ball":
