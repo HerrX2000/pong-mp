@@ -11,7 +11,9 @@ var score_1:int = 0
 var score_2:int = 0
 var prev_scored:int = 1
 var upnp = UPNP.new()
+var winner:int=0
 const DEFAULT_PORT = 8910
+const MAX_GAMES=50
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,7 +40,7 @@ func load_scene(scene:String) -> void:
 	restart_scene()
 
 func scored(player:int) -> void:
-	if get_tree().is_network_server():
+	if get_tree().is_network_server()||get_tree().get_network_peer()==null:
 		match player:
 			1:
 				score_1+=1
@@ -49,6 +51,13 @@ func scored(player:int) -> void:
 		restart_scene()
 		rpc("update", score_1,score_2,prev_scored,game_nmb)
 	$sfx/score.play()
+	if score_1+score_2>=MAX_GAMES:
+		if score_1>score_2:
+			winner=1
+		elif score_1<score_2:
+			winner=2
+		rpc("won", winner)
+		load_scene("boot")
 
 puppet func update(uscore_1,uscore_2,uprev_scored,ugame_nmb):
 	self.score_1=uscore_1
@@ -56,6 +65,13 @@ puppet func update(uscore_1,uscore_2,uprev_scored,ugame_nmb):
 	self.prev_scored=uprev_scored
 	self.game_nmb=ugame_nmb
 	restart_scene()
+
+puppet func won(uwinner):
+	self.score_1=0
+	self.score_2=0
+	self.prev_scored=uwinner
+	self.game_nmb=0
+	load_scene("boot")
 
 func score():
 	return [score_1,score_2]

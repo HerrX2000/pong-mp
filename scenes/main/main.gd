@@ -17,8 +17,7 @@ func _ready():
 	else:
 		#if client, take controll of player2
 		get_node("player2").set_network_master(get_tree().get_network_unique_id())
-	var curSpeed:float=get_node("ball").speed;
-	$speedInfo.text="Speed: "+str(curSpeed)
+	
 #	if GLOBAL.online:
 #		print("My Unique ID: ", get_tree().get_network_unique_id())
 #		print(get_tree().get_network_peer())
@@ -37,7 +36,8 @@ func on_body_entered(body,player) -> void:
 	$score_2.text=str(score[1])
 # Called every fram
 func _process(delta):
-	pass
+	var curSpeed:float=get_node("ball").speed;
+	$speedInfo.text="Speed: "+str(curSpeed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

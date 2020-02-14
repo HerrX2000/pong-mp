@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://scenes/root/boot.gd" type="Script" id=1]
+[ext_resource path="res://scenes/boot/boot.gd" type="Script" id=1]
 [ext_resource path="res://fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://fonts/Roboto-Regular.tres" type="DynamicFont" id=3]
 
@@ -42,7 +42,7 @@ margin_top = 504.87
 margin_right = 1275.0
 margin_bottom = 713.87
 custom_fonts/font = SubResource( 2 )
-text = "0.1
+text = "0.2
 by Fred
 ©2020
 "

@@ -6,12 +6,14 @@ var direction = Vector2(1.0, 0.0)
 const INITIAL_SPEED = 6
 # Speed of the ball (also in pixels/second)
 var speed = INITIAL_SPEED
+var timer=0
 var velocity = Vector2()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if is_network_master()||get_tree().get_network_peer()==null:
 		start_ball()
+		$Timer.start()
 
 puppet func set_pos_and_motion_ball(b_pos,b_vol):
 	position=b_pos
@@ -21,7 +23,9 @@ func _physics_process(delta):
 	if is_network_master()||get_tree().get_network_peer()==null:
 		var extraSpeed=GLOBAL.game_nmb/5;
 		extraSpeed=min(extraSpeed,20)
+		extraSpeed+=timer*0.25
 		speed=INITIAL_SPEED+extraSpeed
+		#print(speed)
 		var collision_info = move_and_collide(velocity*speed)
 		if collision_info:
 			velocity = velocity.bounce(collision_info.normal)
@@ -41,3 +45,7 @@ func start_ball():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_Timer_timeout():
+	timer+=1
