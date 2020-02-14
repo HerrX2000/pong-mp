@@ -18,6 +18,9 @@ script = ExtResource( 1 )
 margin_right = 1280.0
 margin_bottom = 720.0
 color = Color( 0.148438, 0.148438, 0.148438, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -27,17 +30,55 @@ margin_top = 110.0
 margin_right = 1277.0
 margin_bottom = 299.0
 custom_fonts/font = SubResource( 1 )
-text = "Pong"
+text = "Pong-MP"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Credits" type="Label" parent="."]
-margin_left = 2.0
-margin_top = 334.87
-margin_right = 1277.0
-margin_bottom = 523.87
+margin_top = 504.87
+margin_right = 1275.0
+margin_bottom = 713.87
 custom_fonts/font = SubResource( 2 )
 text = "0.1
 by Fred
 ©2019
 "
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = 153.0
+margin_top = 327.0
+margin_right = 1151.0
+margin_bottom = 490.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Join" type="Button" parent="Panel"]
+margin_left = 693.0
+margin_top = 30.0
+margin_right = 934.0
+margin_bottom = 118.0
+rect_pivot_offset = Vector2( 176, 16 )
+text = "Join"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Host" type="Button" parent="Panel"]
+margin_left = 30.0
+margin_top = 31.0
+margin_right = 271.0
+margin_bottom = 119.0
+rect_pivot_offset = Vector2( 176, 16 )
+text = "Host"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Panel/Join" to="." method="_on_Join_pressed"]
+[connection signal="pressed" from="Panel/Host" to="." method="_on_Host_pressed"]
