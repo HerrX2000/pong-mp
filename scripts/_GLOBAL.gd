@@ -12,25 +12,40 @@ var score_2:int = 0
 var prev_scored:int = 1
 
 # Called when the node enters the scene tree for the first time.
-#func _ready():
-#	pass # Replace with function body.
+func _ready():
+	get_tree().connect("connection_failed", self, "_connected_fail")
+	get_tree().connect("server_disconnected", self, "_server_disconnected")
 
+func _connected_fail():
+	get_tree().set_network_peer(null)
+	load_scene("boot")
 
-
+func _server_disconnected():
+	get_tree().set_network_peer(null)
+	load_scene("boot")
 
 func load_scene(scene:String) -> void:
 	GLOBAL.scene_name = scene
 	restart_scene()
 
 func scored(player:int) -> void:
-	match player:
+	if get_tree().is_network_server():
+		match player:
 			1:
 				score_1+=1
 			2:
 				score_2+=2
+		prev_scored=player
+		game_nmb+=1
+		restart_scene()
+		rpc("update", score_1,score_2,prev_scored,game_nmb)
 	$sfx/score.play()
-	prev_scored=player
-	game_nmb+=1
+
+puppet func update(score_1,score_2,prev_scored,game_nmb):
+	self.score_1=score_1
+	self.score_2=score_2
+	self.prev_scored=prev_scored
+	self.game_nmb=game_nmb
 	restart_scene()
 
 func score():

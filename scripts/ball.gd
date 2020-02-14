@@ -22,7 +22,7 @@ func _physics_process(delta):
 		var collision_info = move_and_collide(velocity*(speed+(1+GLOBAL.game_nmb/5)))
 		if collision_info:
 			velocity = velocity.bounce(collision_info.normal)
-			rpc_unreliable("set_pos_and_motion_ball", position, velocity)
+		rpc_unreliable("set_pos_and_motion_ball", position, velocity)
 
 func start_ball():
 	velocity = Vector2()
