@@ -7,7 +7,7 @@ var velocity = Vector2()
 # var b = "text"
 
 # Called when the node enters the scene tree for the first time.
-puppet func set_pos_and_motion(p_pos,p_velocity):
+puppet func set_pos_and_motion1(p_pos,p_velocity):
 	position=p_pos
 	velocity=p_velocity
 func _ready():
@@ -25,7 +25,7 @@ func get_input():
 	if Input.is_action_pressed('player1_up'):
 		velocity.y -= 1
 	velocity = velocity.normalized() * speed
-	rpc_unreliable("set_pos_and_motion", position, velocity)
+	rpc_unreliable("set_pos_and_motion1", position, velocity)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
