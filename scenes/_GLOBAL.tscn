@@ -13,4 +13,3 @@ script = ExtResource( 1 )
 
 [node name="score" type="AudioStreamPlayer" parent="sfx"]
 stream = ExtResource( 2 )
-
