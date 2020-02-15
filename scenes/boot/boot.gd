@@ -11,7 +11,9 @@ func _player_connected(_id):
 #
 #	get_tree().get_root().add_child(pong)
 #	hide()
-	GLOBAL.load_scene("main");
+	rpc("snyc_options", GLOBAL.gamemode)
+	GLOBAL.load_gamemode();
+	
 
 func _player_disconnected(_id):
 
@@ -88,6 +90,7 @@ func _on_Host_pressed():
 		get_node("Panel/WaitingPlayers").text="Waiting for Players to connect...\nMake sure Port "+str(GLOBAL.DEFAULT_PORT)+" TCP/UDP is open"
 	
 	disable_buttons()
+	GLOBAL.synced=true
 
 func _on_Join_pressed():
 	var ip = get_node("Panel/IpAdress").text
@@ -113,16 +116,18 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
-
+	GLOBAL.reset_score()
+	$Panel/gamemode.add_item("Normal",0)
+	$Panel/gamemode.add_item("EXTREM",1)
+	$Panel/gamemode.selected=GLOBAL.gamemode;
 
 func _on_Local_pressed():
 	disable_buttons()
-	GLOBAL.load_scene("main");
+	GLOBAL.load_gamemode();
 
 func disable_buttons(disabled=true):
-	get_node("Panel/Join").set_disabled(disabled)
-	get_node("Panel/Host").set_disabled(disabled)
-	get_node("Panel/Local").set_disabled(disabled)
+	for node in get_tree().get_nodes_in_group("ClickingButton"):
+		node.set_disabled(disabled)
 
 
 func _on_SoundToggle_toggled(button_pressed):
@@ -132,3 +137,15 @@ func _on_SoundToggle_toggled(button_pressed):
 	else:
 		GLOBAL.music=true;
 		$music.play();
+
+
+func _on_SFXToggle_toggled(button_pressed):
+	if(!button_pressed):
+		GLOBAL.sfx=false;
+	else:
+		GLOBAL.sfx=true;
+	
+
+
+func _on_gamemode_item_selected(id):
+	GLOBAL.gamemode=id

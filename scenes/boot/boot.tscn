@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/boot/boot.gd" type="Script" id=1]
 [ext_resource path="res://fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://fonts/Roboto-Regular.tres" type="DynamicFont" id=3]
 [ext_resource path="res://sfx/tracks/track1.wav" type="AudioStream" id=4]
+[ext_resource path="res://costumeNodes/ClickingButton.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 160
@@ -27,10 +28,10 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Title" type="Label" parent="."]
-margin_left = 2.0
-margin_top = 110.0
-margin_right = 1277.0
-margin_bottom = 299.0
+margin_left = 0.639648
+margin_top = 80.0
+margin_right = 1275.64
+margin_bottom = 269.0
 custom_fonts/font = SubResource( 1 )
 text = "Pong"
 align = 1
@@ -39,69 +40,92 @@ __meta__ = {
 }
 
 [node name="Credits" type="Label" parent="."]
-margin_top = 504.87
+margin_left = 925.0
+margin_top = 542.0
 margin_right = 1275.0
-margin_bottom = 713.87
+margin_bottom = 714.0
+rect_pivot_offset = Vector2( 194.582, 84.166 )
 custom_fonts/font = SubResource( 2 )
-text = "0.3
+text = "0.4
 by Fred
-©2020
-"
+©2020"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Credits2" type="Label" parent="."]
+margin_left = 260.0
+margin_top = 542.0
+margin_right = 923.0
+margin_bottom = 714.0
+rect_pivot_offset = Vector2( 194.582, 84.166 )
+custom_fonts/font = SubResource( 2 )
+text = "1. Hit the Ball
+2. Win with 20 Points"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Panel" type="Panel" parent="."]
 margin_left = 153.0
-margin_top = 328.166
+margin_top = 275.0
 margin_right = 1151.0
-margin_bottom = 491.166
+margin_bottom = 492.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Join" type="Button" parent="Panel"]
+[node name="Join" type="Button" parent="Panel" groups=[
+"ClickingButton",
+]]
 margin_left = 693.0
-margin_top = 30.0
+margin_top = 75.0
 margin_right = 934.0
-margin_bottom = 118.0
+margin_bottom = 163.0
 rect_pivot_offset = Vector2( 176, 16 )
 custom_fonts/font = ExtResource( 3 )
 text = "Join"
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Host" type="Button" parent="Panel"]
+[node name="Host" type="Button" parent="Panel" groups=[
+"ClickingButton",
+]]
 margin_left = 365.909
-margin_top = 31.0
+margin_top = 76.0
 margin_right = 606.909
-margin_bottom = 119.0
+margin_bottom = 164.0
 rect_pivot_offset = Vector2( 316.338, 0 )
 custom_fonts/font = ExtResource( 3 )
 text = "Host"
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Local" type="Button" parent="Panel"]
+[node name="Local" type="Button" parent="Panel" groups=[
+"ClickingButton",
+]]
 margin_left = 50.9943
-margin_top = 32.1663
+margin_top = 77.1663
 margin_right = 291.994
-margin_bottom = 120.166
+margin_bottom = 165.166
 rect_pivot_offset = Vector2( 316.338, 0 )
 custom_fonts/font = ExtResource( 3 )
 text = "Local"
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="IpAdress" type="TextEdit" parent="Panel"]
 margin_left = 746.0
-margin_top = 120.0
+margin_top = 165.0
 margin_right = 936.0
-margin_bottom = 160.0
+margin_bottom = 205.0
 custom_fonts/font = ExtResource( 3 )
 text = "192.168.178.20"
 __meta__ = {
@@ -110,20 +134,23 @@ __meta__ = {
 
 [node name="Button" type="Button" parent="Panel"]
 margin_left = 693.0
-margin_top = 117.0
+margin_top = 162.0
 margin_right = 743.0
-margin_bottom = 161.0
+margin_bottom = 206.0
 custom_fonts/font = ExtResource( 3 )
 disabled = true
 text = "IP:"
 
 [node name="WaitingPlayers" type="RichTextLabel" parent="Panel"]
 visible = false
-margin_left = 378.0
+margin_left = 371.0
 margin_top = 128.0
-margin_right = 593.0
+margin_right = 605.0
 margin_bottom = 168.0
 text = "Waiting for Players to connect..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Connecting" type="RichTextLabel" parent="Panel"]
 visible = false
@@ -132,6 +159,17 @@ margin_top = 128.0
 margin_right = 593.0
 margin_bottom = 168.0
 text = "Connecting..."
+
+[node name="gamemode" type="OptionButton" parent="Panel"]
+margin_left = 394.509
+margin_top = 6.80188
+margin_right = 586.509
+margin_bottom = 64.8019
+custom_fonts/font = ExtResource( 3 )
+text = "Normal"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Options" type="Panel" parent="."]
 margin_left = 1189.0
@@ -149,7 +187,7 @@ margin_right = 86.7351
 margin_bottom = 35.7351
 custom_fonts/font = ExtResource( 3 )
 disabled = true
-text = "Sound:"
+text = "Music:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -164,11 +202,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="music" type="AudioStreamPlayer2D" parent="."]
+[node name="SFX" type="Button" parent="Options"]
+margin_left = 0.735107
+margin_top = 75.3816
+margin_right = 86.7351
+margin_bottom = 110.382
+custom_fonts/font = ExtResource( 3 )
+disabled = true
+text = "SFX:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SFXToggle" type="CheckButton" parent="Options"]
+margin_left = 6.41052
+margin_top = 112.706
+margin_right = 82.4105
+margin_bottom = 152.706
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 autoplay = true
 [connection signal="pressed" from="Panel/Join" to="." method="_on_Join_pressed"]
 [connection signal="pressed" from="Panel/Host" to="." method="_on_Host_pressed"]
 [connection signal="pressed" from="Panel/Local" to="." method="_on_Local_pressed"]
-[connection signal="pressed" from="Options/SoundToggle" to="." method="_on_SoundToggle_pressed"]
+[connection signal="item_selected" from="Panel/gamemode" to="." method="_on_gamemode_item_selected"]
 [connection signal="toggled" from="Options/SoundToggle" to="." method="_on_SoundToggle_toggled"]
+[connection signal="toggled" from="Options/SFXToggle" to="." method="_on_SFXToggle_toggled"]
