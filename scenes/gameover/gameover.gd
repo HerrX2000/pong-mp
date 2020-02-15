@@ -15,9 +15,8 @@ func _ready():
 		$winner_text.text="Player 2 won!"
 	else:
 		$winner_text.text="Draw!"
+	get_tree().set_network_peer(null)
 	GLOBAL.load_scene("boot")
-	
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

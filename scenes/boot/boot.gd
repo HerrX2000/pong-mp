@@ -13,7 +13,10 @@ func _player_connected(_id):
 #	hide()
 	rpc("snyc_options", GLOBAL.gamemode)
 	GLOBAL.load_gamemode();
-	
+
+remote func sync_options(ugamemode):
+	print("TEST")
+	GLOBAL.sync_options(ugamemode)
 
 func _player_disconnected(_id):
 

@@ -89,10 +89,11 @@ func play_sfx(name:String,restart:bool=true):
 
 puppet func sync_options(ugamemode:int):
 	gamemode=ugamemode
-	synced=true
+	synced()
 	rpc("synced",true)
 
 puppet func synced():
+	print("Synced")
 	synced=true
 
 puppet func update(uscore_1,uscore_2,uprev_scored,ugame_nmb):
