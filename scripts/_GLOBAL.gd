@@ -16,7 +16,7 @@ const DEFAULT_PORT = 8910
 const MAX_GAMES=2
 var music:bool=true
 var sfx:bool=true
-var gamemode:int=0
+var gamemode:int=1
 var synced:bool=false
 
 # Called when the node enters the scene tree for the first time.
@@ -88,17 +88,18 @@ func play_sfx(name:String,restart:bool=true):
 			get_node(name).play()
 
 func start_sync():
-	rpc("sync_options",true,gamemode)
+	print("Start syncing clients")
+	rpc("sync_options",gamemode)
 
-puppet func sync_options(ugamemode:int):
+remote func sync_options(ugamemode:int):
+	print("Start sync of client by server")
 	gamemode=ugamemode
 	rpc("synced",true)
 	synced=true
 
-puppet func synced():
+remote func synced(succ:bool):
 	print("Synced")
 	synced=true
-	load_gamemode();
 
 puppet func update(uscore_1,uscore_2,uprev_scored,ugame_nmb):
 	self.score_1=uscore_1
