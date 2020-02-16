@@ -144,9 +144,9 @@ text = "IP:"
 [node name="WaitingPlayers" type="RichTextLabel" parent="Panel"]
 visible = false
 margin_left = 371.0
-margin_top = 128.0
+margin_top = 170.0
 margin_right = 605.0
-margin_bottom = 168.0
+margin_bottom = 220.0
 text = "Waiting for Players to connect..."
 __meta__ = {
 "_edit_use_anchors_": false
@@ -155,9 +155,9 @@ __meta__ = {
 [node name="Connecting" type="RichTextLabel" parent="Panel"]
 visible = false
 margin_left = 378.0
-margin_top = 128.0
+margin_top = 170.0
 margin_right = 593.0
-margin_bottom = 168.0
+margin_bottom = 220.0
 text = "Connecting..."
 
 [node name="gamemode" type="OptionButton" parent="Panel"]
@@ -226,7 +226,6 @@ __meta__ = {
 
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-autoplay = true
 [connection signal="pressed" from="Panel/Join" to="." method="_on_Join_pressed"]
 [connection signal="pressed" from="Panel/Host" to="." method="_on_Host_pressed"]
 [connection signal="pressed" from="Panel/Local" to="." method="_on_Local_pressed"]

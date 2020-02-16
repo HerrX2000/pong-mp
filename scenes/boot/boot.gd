@@ -5,18 +5,7 @@ extends Node2D
 
 # callback from SceneTree
 func _player_connected(_id):
-	#someone connected, start the game!
-#	var pong = load("res://pong.tscn").instance()
-#	pong.connect("game_finished", self, "_end_game", [], CONNECT_DEFERRED) # connect deferred so we can safely erase it from the callback
-#
-#	get_tree().get_root().add_child(pong)
-#	hide()
-	rpc("snyc_options", GLOBAL.gamemode)
-	GLOBAL.load_gamemode();
-
-remote func sync_options(ugamemode):
-	print("TEST")
-	GLOBAL.sync_options(ugamemode)
+	GLOBAL.load_scene("connecting")
 
 func _player_disconnected(_id):
 
@@ -93,7 +82,6 @@ func _on_Host_pressed():
 		get_node("Panel/WaitingPlayers").text="Waiting for Players to connect...\nMake sure Port "+str(GLOBAL.DEFAULT_PORT)+" TCP/UDP is open"
 	
 	disable_buttons()
-	GLOBAL.synced=true
 
 func _on_Join_pressed():
 	var ip = get_node("Panel/IpAdress").text

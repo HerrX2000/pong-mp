@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-var debug_mode:bool = false
+var debug_mode:bool = true
 var scene_name:String = "boot"
 var current_music:String = ""
 var file:File = File.new()
@@ -74,7 +74,7 @@ func scored(player:int) -> void:
 func play_sound(name:String,restart:bool=true):
 	file_path = "res://"+name+".wav"
 	if file.file_exists(file_path):
-		if (get_node(name).playing!=true||restart)&&music:
+		if (get_node(name).playing!=true||restart)&&music&&!debug_mode:
 			get_node(name).play()
 
 func stop_sound(name:String):
@@ -84,17 +84,21 @@ func play_sfx(name:String,restart:bool=true):
 	name="sfx/"+name
 	file_path = "res://"+name+".wav"
 	if file.file_exists(file_path):
-		if (get_node(name).playing!=true||restart)&&sfx:
+		if (get_node(name).playing!=true||restart)&&sfx&&!debug_mode:
 			get_node(name).play()
+
+func start_sync():
+	rpc("sync_options",true,gamemode)
 
 puppet func sync_options(ugamemode:int):
 	gamemode=ugamemode
-	synced()
 	rpc("synced",true)
+	synced=true
 
 puppet func synced():
 	print("Synced")
 	synced=true
+	load_gamemode();
 
 puppet func update(uscore_1,uscore_2,uprev_scored,ugame_nmb):
 	self.score_1=uscore_1

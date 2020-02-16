@@ -6,7 +6,6 @@ var velocity = Vector2()
 # var a = 2
 # var b = "text"
 
-# Called when the node enters the scene tree for the first time.
 puppet func set_pos_and_motion2(p_pos,p_velocity):
 	position=p_pos
 	velocity=p_velocity
