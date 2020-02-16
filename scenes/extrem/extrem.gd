@@ -4,6 +4,7 @@ var dz_x_min:int
 var dz_y_min:int
 var dz_x_max:int
 var dz_y_max:int
+var _master:bool=false
 
 
 onready var block = preload("res://objects/block.tscn")
@@ -11,8 +12,7 @@ var block_positions=[]
 
 func _ready():
 	if get_tree().get_network_peer()==null||get_tree().is_network_server():
-	#if local, give all players to local
-		get_tree().get_root().get_node("extrem").set_network_master(get_tree().get_network_unique_id())
+		_master=true
 	set_up_dangerzones()
 	$dangerzone_timer.start()
 
@@ -61,7 +61,7 @@ func nextDZPosition()->Vector2:
 func _on_dangerzone_timer_timeout():
 	$dangerzone_timer.start()
 	$info.text=""
-	if is_network_master():
+	if _master:
 		var newBlock=block.instance()
 		var newPosition=nextDZPosition()
 		newBlock.position=newPosition

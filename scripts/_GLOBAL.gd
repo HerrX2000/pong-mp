@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-var debug_mode:bool = true
+var debug_mode:bool = false
 var scene_name:String = "boot"
 var current_music:String = ""
 var file:File = File.new()
