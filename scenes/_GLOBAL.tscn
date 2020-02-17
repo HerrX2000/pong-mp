@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/_GLOBAL.gd" type="Script" id=1]
 [ext_resource path="res://sfx/score.wav" type="AudioStream" id=2]
 [ext_resource path="res://sfx/ping.wav" type="AudioStream" id=3]
-[ext_resource path="res://sfx/tracks/track2.wav" type="AudioStream" id=4]
+[ext_resource path="res://sfx/music/menu_track.wav" type="AudioStream" id=4]
 [ext_resource path="res://sfx/click.wav" type="AudioStream" id=5]
 [ext_resource path="res://sfx/game_start.wav" type="AudioStream" id=6]
 [ext_resource path="res://sfx/gameover.wav" type="AudioStream" id=7]
+[ext_resource path="res://fonts/Roboto-Regular.tres" type="DynamicFont" id=8]
 
 [node name="global" type="CanvasLayer"]
 pause_mode = 2
@@ -39,3 +40,12 @@ stream = ExtResource( 7 )
 [node name="main_track" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -15.0
+
+[node name="fps" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 8 )
+text = "FPS"
+__meta__ = {
+"_edit_use_anchors_": false
+}

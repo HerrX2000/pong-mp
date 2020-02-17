@@ -111,6 +111,8 @@ func _ready():
 	$Panel/gamemode.add_item("Normal",0)
 	$Panel/gamemode.add_item("EXTREM",1)
 	$Panel/gamemode.selected=GLOBAL.gamemode;
+	if GLOBAL.music:
+		$music.play()
 
 func _on_Local_pressed():
 	disable_buttons()

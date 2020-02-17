@@ -13,7 +13,7 @@ var prev_scored:int = 1
 var upnp = UPNP.new()
 var winner:int=0
 const DEFAULT_PORT = 8910
-const MAX_GAMES=2
+const MAX_GAMES=20
 var music:bool=true
 var sfx:bool=true
 var gamemode:int=1
@@ -72,9 +72,10 @@ func scored(player:int) -> void:
 		load_scene("gameover")
 
 func play_sound(name:String,restart:bool=true):
-	file_path = "res://"+name+".wav"
+	file_path = "res://sfx/music/"+name+".wav"
 	if file.file_exists(file_path):
 		if (get_node(name).playing!=true||restart)&&music&&!debug_mode:
+			
 			get_node(name).play()
 
 func stop_sound(name:String):
@@ -154,3 +155,6 @@ func scene_fade(start:int, end:int, time:float) -> Node:
 	$tween.start()
 
 	return $tween
+
+func _process(delta):
+	$fps.text=str(Engine.get_frames_per_second())

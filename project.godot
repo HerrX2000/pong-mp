@@ -67,4 +67,7 @@ player1_speed={
 
 [rendering]
 
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
+quality/filters/msaa=1
 environment/default_environment="res://default_env.tres"
